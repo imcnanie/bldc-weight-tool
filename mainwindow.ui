@@ -2733,6 +2733,7 @@ p, li { white-space: pre-wrap; }
             </property>
             <property name="currentIndex">
              <number>0</number>
+
             </property>
             <widget class="QWidget" name="tab_16">
              <attribute name="title">
@@ -3472,7 +3473,7 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="7">
+                 <item row="0" column="1">
                   <spacer name="horizontalSpacer_18">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
@@ -3532,6 +3533,71 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
+
+                 <item row="0" column="7">
+                  <widget class="QLabel" name="appconfZFrontpadGain">
+                   <property name="text">
+                    <string>Z Frontpad Gain</string>
+                   </property>
+                  </widget>
+                 </item>
+
+                 <item row="0" column="8">
+                  <widget class="QDoubleSpinBox" name="appconfZFrontpadGainBox">
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+
+                 <item row="1" column="7">
+                  <widget class="QLabel" name="appconfZFrontpadLinearity">
+                   <property name="text">
+                    <string>Z Frontpad Linearity</string>
+                   </property>
+                  </widget>
+                 </item>
+
+                  <item row="1" column="8">
+                  <widget class="QDoubleSpinBox" name="appconfZFrontpadLinearityBox">
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 
+                 <item row="0" column="9">
+                  <widget class="QLabel" name="appconfZBrakepadGain">
+                   <property name="text">
+                    <string>Z Brakepad Gain</string>
+                   </property>
+                  </widget>
+                 </item>
+
+                 <item row="0" column="10">
+                  <widget class="QDoubleSpinBox" name="appconfZBrakepadGainBox">
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+
+                 <item row="1" column="9">
+                  <widget class="QLabel" name="appconfZBrakepadLinearity">
+                   <property name="text">
+                    <string>Z Brakepad Linearity</string>
+                   </property>
+                  </widget>
+                 </item>
+
+                 <item row="1" column="10">
+                  <widget class="QDoubleSpinBox" name="appconfZBrakepadLinearityBox">
+                   <property name="singleStep">
+                    <double>0.010000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 
                 </layout>
                </widget>
               </item>

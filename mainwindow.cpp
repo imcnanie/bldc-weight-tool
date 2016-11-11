@@ -387,7 +387,7 @@ mc_configuration MainWindow::getMcconfGui()
     mcconf.m_duty_ramp_step_rpm_lim = ui->mcconfMDutyRampStepSpeedLimBox->value();
     mcconf.m_current_backoff_gain = ui->mcconfMCurrentBackoffGainBox->value();
     mcconf.m_encoder_counts = ui->mcconfMEncoderCountBox->value();
-
+    
     if (ui->mcconfMSensorHallButton->isChecked()) {
         mcconf.m_sensor_port_mode = SENSOR_PORT_MODE_HALL;
     } else if (ui->mcconfMSensorAbiButton->isChecked()) {
@@ -397,7 +397,7 @@ mc_configuration MainWindow::getMcconfGui()
     }
 
     mcconf.meta_description = ui->mcconfDescEdit->toHtml();
-
+    
     return mcconf;
 }
 
@@ -1942,6 +1942,12 @@ void MainWindow::appconfReceived(app_configuration appconf)
     ui->appconfAdcTcBox->setChecked(appconf.app_adc_conf.tc);
     ui->appconfAdcTcErpmBox->setValue(appconf.app_adc_conf.tc_max_diff);
 
+    // Zboard
+    ui->appconfZFrontpadGainBox->setValue(appconf.app_adc_conf.z_frontpad_gain);
+    ui->appconfZFrontpadLinearityBox->setValue(appconf.app_adc_conf.z_frontpad_linearity);
+    ui->appconfZBrakepadGainBox->setValue(appconf.app_adc_conf.z_brakepad_gain);
+    ui->appconfZBrakepadLinearityBox->setValue(appconf.app_adc_conf.z_brakepad_linearity);
+    
     // UART
     ui->appconfUartBaudBox->setValue(appconf.app_uart_baudrate);
 
@@ -2524,6 +2530,12 @@ void MainWindow::on_appconfWriteButton_clicked()
     appconf.app_adc_conf.multi_esc = ui->appconfAdcMultiGroup->isChecked();
     appconf.app_adc_conf.tc = ui->appconfAdcTcBox->isChecked();
     appconf.app_adc_conf.tc_max_diff = ui->appconfAdcTcErpmBox->value();
+
+    // Zboard Shizzle
+    appconf.app_adc_conf.z_frontpad_gain = ui->appconfZFrontpadGainBox->value();
+    appconf.app_adc_conf.z_frontpad_linearity = ui->appconfZFrontpadLinearityBox->value();
+    appconf.app_adc_conf.z_brakepad_gain = ui->appconfZBrakepadGainBox->value();
+    appconf.app_adc_conf.z_brakepad_linearity = ui->appconfZBrakepadLinearityBox->value();
 
     // UART
     appconf.app_uart_baudrate = ui->appconfUartBaudBox->value();

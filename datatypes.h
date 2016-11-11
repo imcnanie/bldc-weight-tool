@@ -223,6 +223,8 @@ typedef struct {
     float m_current_backoff_gain;
     uint32_t m_encoder_counts;
     sensor_port_mode m_sensor_port_mode;
+
+  
     // Fields that are only present in Qt
     QString meta_description;
 } mc_configuration;
@@ -297,6 +299,13 @@ typedef struct {
     bool tc;
     float tc_max_diff;
     quint32 update_rate_hz;
+  
+    //Zboard
+    float z_frontpad_gain;
+    float z_frontpad_linearity;
+    float z_brakepad_gain;
+    float z_brakepad_linearity;
+  
 } adc_config;
 
 // Nunchuk control types

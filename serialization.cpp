@@ -135,6 +135,8 @@ bool Serialization::writeMcconfXml(const mc_configuration &mcconf, QWidget *pare
     xmlwriter.writeTextElement("m_current_backoff_gain", QString::number(mcconf.m_current_backoff_gain));
     xmlwriter.writeTextElement("m_encoder_counts", QString::number(mcconf.m_encoder_counts));
     xmlwriter.writeTextElement("m_sensor_port_mode", QString::number(mcconf.m_sensor_port_mode));
+
+    
     xmlwriter.writeTextElement("meta_description", mcconf.meta_description);
 
     xmlwriter.writeEndElement();

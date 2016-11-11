@@ -299,6 +299,7 @@ bool PacketInterface::sendPacket(QByteArray data)
 
 void PacketInterface::processPacket(const unsigned char *data, int len)
 {
+
     int32_t ind = 0;
     MC_VALUES values;
     QByteArray bytes;
@@ -323,6 +324,8 @@ void PacketInterface::processPacket(const unsigned char *data, int len)
     data++;
     len--;
 
+    qDebug() << "testttt: "<< id;
+    
     switch (id) {
     case COMM_FW_VERSION:
         if (len == 2) {
@@ -484,8 +487,9 @@ void PacketInterface::processPacket(const unsigned char *data, int len)
         mcconf.m_duty_ramp_step_rpm_lim = utility::buffer_get_double32(data, 1000000.0, &ind);
         mcconf.m_current_backoff_gain = utility::buffer_get_double32(data, 1000000.0, &ind);
         mcconf.m_encoder_counts = utility::buffer_get_uint32(data, &ind);
+        
         mcconf.m_sensor_port_mode = (sensor_port_mode)data[ind++];
-
+        
         mcconf.meta_description = "Configuration loaded from the motor controller.";
 
         emit mcconfReceived(mcconf);
@@ -531,6 +535,12 @@ void PacketInterface::processPacket(const unsigned char *data, int len)
         appconf.app_adc_conf.tc_max_diff = utility::buffer_get_double32(data, 1000.0, &ind);
         appconf.app_adc_conf.update_rate_hz = utility::buffer_get_uint16(data, &ind);
 
+        appconf.app_adc_conf.z_frontpad_gain = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_adc_conf.z_frontpad_linearity = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_adc_conf.z_brakepad_gain = utility::buffer_get_double32(data, 1000.0, &ind);
+        appconf.app_adc_conf.z_brakepad_linearity = utility::buffer_get_double32(data, 1000.0, &ind);
+        //qDebug() << "z_frontpad_gain: " << appconf.app_adc_conf.z_frontpad_gain;
+        
         appconf.app_uart_baudrate = utility::buffer_get_uint32(data, &ind);
 
         appconf.app_chuk_conf.ctrl_type = (chuk_control_type)data[ind++];
@@ -550,9 +560,16 @@ void PacketInterface::processPacket(const unsigned char *data, int len)
         appconf.app_nrf_conf.retry_delay = (NRF_RETR_DELAY)data[ind++];
         appconf.app_nrf_conf.retries = data[ind++];
         appconf.app_nrf_conf.channel = data[ind++];
+
+
+
+        
+        
         memcpy(appconf.app_nrf_conf.address, data + ind, 3);
+        
         ind += 3;
         appconf.app_nrf_conf.send_crc_ack = data[ind++];
+
 
         emit appconfReceived(appconf);
         break;
@@ -984,6 +1001,7 @@ bool PacketInterface::setMcconf(const mc_configuration &mcconf)
     utility::buffer_append_double32(mSendBuffer,mcconf.m_duty_ramp_step_rpm_lim, 1000000, &send_index);
     utility::buffer_append_double32(mSendBuffer,mcconf.m_current_backoff_gain, 1000000, &send_index);
     utility::buffer_append_uint32(mSendBuffer, mcconf.m_encoder_counts, &send_index);
+    
     mSendBuffer[send_index++] = mcconf.m_sensor_port_mode;
 
     return sendPacket(mSendBuffer, send_index);
@@ -1056,6 +1074,12 @@ bool PacketInterface::setAppConf(const app_configuration &appconf)
     utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.tc_max_diff, 1000.0, &send_index);
     utility::buffer_append_uint16(mSendBuffer, appconf.app_adc_conf.update_rate_hz, &send_index);
 
+    //Zboard
+    utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_frontpad_gain, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_frontpad_linearity, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_brakepad_gain, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_brakepad_linearity, 1000.0, &send_index);
+    
     utility::buffer_append_uint32(mSendBuffer, appconf.app_uart_baudrate, &send_index);
 
     mSendBuffer[send_index++] = appconf.app_chuk_conf.ctrl_type;
