@@ -537,8 +537,10 @@ void PacketInterface::processPacket(const unsigned char *data, int len)
 
         appconf.app_adc_conf.z_frontpad_gain = utility::buffer_get_double32(data, 1000.0, &ind);
         appconf.app_adc_conf.z_frontpad_linearity = utility::buffer_get_double32(data, 1000.0, &ind);
+	appconf.app_adc_conf.z_frontpad_offset = utility::buffer_get_double32(data, 1000.0, &ind);
         appconf.app_adc_conf.z_brakepad_gain = utility::buffer_get_double32(data, 1000.0, &ind);
         appconf.app_adc_conf.z_brakepad_linearity = utility::buffer_get_double32(data, 1000.0, &ind);
+	appconf.app_adc_conf.z_brakepad_offset = utility::buffer_get_double32(data, 1000.0, &ind);
         //qDebug() << "z_frontpad_gain: " << appconf.app_adc_conf.z_frontpad_gain;
         
         appconf.app_uart_baudrate = utility::buffer_get_uint32(data, &ind);
@@ -1077,8 +1079,10 @@ bool PacketInterface::setAppConf(const app_configuration &appconf)
     //Zboard
     utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_frontpad_gain, 1000.0, &send_index);
     utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_frontpad_linearity, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_frontpad_offset, 1000.0, &send_index);
     utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_brakepad_gain, 1000.0, &send_index);
     utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_brakepad_linearity, 1000.0, &send_index);
+    utility::buffer_append_double32(mSendBuffer, appconf.app_adc_conf.z_brakepad_offset, 1000.0, &send_index);
     
     utility::buffer_append_uint32(mSendBuffer, appconf.app_uart_baudrate, &send_index);
 

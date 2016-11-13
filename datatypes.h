@@ -303,8 +303,10 @@ typedef struct {
     //Zboard
     float z_frontpad_gain;
     float z_frontpad_linearity;
+    float z_frontpad_offset;
     float z_brakepad_gain;
     float z_brakepad_linearity;
+    float z_brakepad_offset;
   
 } adc_config;
 

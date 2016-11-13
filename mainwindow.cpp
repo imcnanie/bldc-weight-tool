@@ -1945,8 +1945,10 @@ void MainWindow::appconfReceived(app_configuration appconf)
     // Zboard
     ui->appconfZFrontpadGainBox->setValue(appconf.app_adc_conf.z_frontpad_gain);
     ui->appconfZFrontpadLinearityBox->setValue(appconf.app_adc_conf.z_frontpad_linearity);
+    ui->appconfZFrontpadOffsetBox->setValue(appconf.app_adc_conf.z_frontpad_offset);
     ui->appconfZBrakepadGainBox->setValue(appconf.app_adc_conf.z_brakepad_gain);
     ui->appconfZBrakepadLinearityBox->setValue(appconf.app_adc_conf.z_brakepad_linearity);
+    ui->appconfZBrakepadOffsetBox->setValue(appconf.app_adc_conf.z_brakepad_offset);
     
     // UART
     ui->appconfUartBaudBox->setValue(appconf.app_uart_baudrate);
@@ -2534,8 +2536,10 @@ void MainWindow::on_appconfWriteButton_clicked()
     // Zboard Shizzle
     appconf.app_adc_conf.z_frontpad_gain = ui->appconfZFrontpadGainBox->value();
     appconf.app_adc_conf.z_frontpad_linearity = ui->appconfZFrontpadLinearityBox->value();
+    appconf.app_adc_conf.z_frontpad_offset = ui->appconfZFrontpadOffsetBox->value();
     appconf.app_adc_conf.z_brakepad_gain = ui->appconfZBrakepadGainBox->value();
     appconf.app_adc_conf.z_brakepad_linearity = ui->appconfZBrakepadLinearityBox->value();
+    appconf.app_adc_conf.z_brakepad_offset = ui->appconfZBrakepadOffsetBox->value();
 
     // UART
     appconf.app_uart_baudrate = ui->appconfUartBaudBox->value();
